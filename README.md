@@ -1,6 +1,6 @@
 # codex-dotfile
 
-English below. Espanol below.
+English below. Español below.
 
 This repository is a Markdown-first operating system for Codex. It gives Codex a shared set of workflows, prompts, rules, roles, contexts, and skills so it can work more consistently across analysis, implementation, testing, audits, and delivery.
 
@@ -14,12 +14,12 @@ This repo packages a reusable `.codex/` setup that you can keep as a reference o
 
 Codex reads these files as operating instructions:
 
-- `workflows` define how to analyze, plan, implement, test, audit, prepare a PR, or ship changes
-- `prompts` provide saved slash-style aliases such as `/think`, `/forge`, and `/test`
-- `rules` define safety and delivery constraints
-- `agents` define specialized roles such as `architect`, `backend`, `frontend`, and `doc-planner`
-- `contexts` adjust behavior for research, development, and review
-- `skills` store focused guidance for architecture, testing, security, TypeScript, Docker, and more
+- `workflows` define how to analyze, plan, implement, test, audit, prepare a PR, or ship changes.
+- `prompts` provide saved slash-style aliases such as `/think`, `/forge`, and `/test`.
+- `rules` define safety and delivery constraints.
+- `agents` define specialized roles such as `architect`, `backend`, `frontend`, and `doc-planner`.
+- `contexts` adjust behavior for research, development, and review.
+- `skills` store focused guidance for architecture, testing, security, TypeScript, Docker, and more.
 
 Start with [`.codex/MANUAL.md`](.codex/MANUAL.md). That file is the main entry point.
 
@@ -31,149 +31,191 @@ Examples:
 
 ```text
 Use .codex/workflows/think.md to analyze this feature and create a plan.
-```
 
-```text
+code Text
+
 Follow .codex/workflows/forge.md and execute the latest approved plan without committing.
-```
 
-```text
+code Text
+
 Use /test to add coverage for this module and keep the change narrow.
-```
 
-The prompt files under [`.codex/prompts/`](.codex/prompts/README.md) are a convenience layer. There is no native slash-command parser in this repo; the aliases are documented prompt expansions that you can reference in chat.
-
-### Recommended Flow
+The prompt files under .codex/prompts/ are a convenience layer. There is no native slash-command parser in this repo; the aliases are documented prompt expansions that you can reference in chat.
+Recommended Flow
 
 For most non-trivial tasks, the intended flow is:
 
-1. `think` for read-only analysis and planning
-2. `forge` for implementation
-3. `test` for focused coverage and regression protection
-4. `audit` for read-only quality, security, and architecture review
-5. `pr` or `ship` only when you explicitly want Git delivery steps
+    think for read-only analysis and planning.
 
-### What Codex Will Create
+    forge for implementation.
 
-For larger tasks, Codex is expected to leave artifacts in `.orchestrator/` so the work can be resumed later.
+    test for focused coverage and regression protection.
+
+    audit for read-only quality, security, and architecture review.
+
+    pr or ship only when you explicitly want Git delivery steps.
+
+What Codex Will Create
+
+For larger tasks, Codex is expected to leave artifacts in .orchestrator/ so the work can be resumed later.
 
 Typical outputs:
 
-- `.orchestrator/plans/<timestamp>-think-<slug>/status.md`
-- `.orchestrator/plans/<timestamp>-think-<slug>/investigation.md`
-- `.orchestrator/plans/<timestamp>-think-<slug>/design.md`
-- `.orchestrator/plans/<timestamp>-think-<slug>/plan.md`
-- `.orchestrator/plans/<timestamp>-<slug>/implementation.md`
-- `.orchestrator/audits/<timestamp>-audit/audit-report.md`
+    .orchestrator/plans/<timestamp>-think-<slug>/status.md
 
-### Safety Model
+    .orchestrator/plans/<timestamp>-think-<slug>/investigation.md
+
+    .orchestrator/plans/<timestamp>-think-<slug>/design.md
+
+    .orchestrator/plans/<timestamp>-think-<slug>/plan.md
+
+    .orchestrator/plans/<timestamp>-<slug>/implementation.md
+
+    .orchestrator/audits/<timestamp>-audit/audit-report.md
+
+Safety Model
 
 This setup is intentionally conservative:
 
-- Codex should not commit, push, merge, or delete branches unless you explicitly ask
-- delivery steps should use Conventional Commits
-- plans, docs, and implementation logs should stay aligned with the real work
-- if documentation is missing or stale, Codex should record that as a risk instead of guessing
+    Codex should not commit, push, merge, or delete branches unless you explicitly ask.
 
-### Repository Map
+    Delivery steps should use Conventional Commits.
 
-- [`.codex/MANUAL.md`](.codex/MANUAL.md): main operating manual
-- [`.codex/workflows/`](.codex/workflows/think.md): end-to-end workflows such as `think`, `forge`, `test`, `audit`, `pr`, and `ship`
-- [`.codex/prompts/`](.codex/prompts/README.md): slash-style prompt aliases
-- [`.codex/rules/`](.codex/rules/global.md): shared safety and operating constraints
-- [`.codex/agents/`](.codex/agents/architect.md): specialized role cards
-- [`.codex/contexts/`](.codex/contexts/development.md): behavior overlays by work mode
-- [`.codex/skills/`](.codex/skills/software-architecture/SKILL.md): reusable reference packs
+    Plans, docs, and implementation logs should stay aligned with the real work.
 
-### Quick Start
+    If documentation is missing or stale, Codex should record that as a risk instead of guessing.
 
-1. Copy or adapt the `.codex/` directory into your repository.
-2. Open [`.codex/MANUAL.md`](.codex/MANUAL.md).
-3. Ask Codex to use one of the workflows or prompt aliases.
-4. Let Codex write plans and audit artifacts to `.orchestrator/` for medium or large tasks.
+Repository Map
 
-## Espanol
+    .codex/MANUAL.md: main operating manual.
 
-### Que Es Este Repositorio
+    .codex/workflows/: end-to-end workflows such as think, forge, test, audit, pr, and ship.
 
-Este repo empaqueta una configuracion reutilizable de `.codex/` que puedes usar como referencia o copiar dentro de otro repositorio.
+    .codex/prompts/: slash-style prompt aliases.
+
+    .codex/rules/: shared safety and operating constraints.
+
+    .codex/agents/: specialized role cards.
+
+    .codex/contexts/: behavior overlays by work mode.
+
+    .codex/skills/: reusable reference packs.
+
+Quick Start
+
+    Copy or adapt the .codex/ directory into your repository.
+
+    Open .codex/MANUAL.md.
+
+    Ask Codex to use one of the workflows or prompt aliases.
+
+    Let Codex write plans and audit artifacts to .orchestrator/ for medium or large tasks.
+
+Español
+Qué es este repositorio
+
+Este repo empaqueta una configuración reutilizable de .codex/ que puedes usar como referencia o copiar dentro de otro repositorio.
 
 Codex lee estos archivos como instrucciones de trabajo:
 
-- `workflows` definen como analizar, planificar, implementar, probar, auditar, preparar un PR o publicar cambios
-- `prompts` ofrecen alias tipo slash como `/think`, `/forge` y `/test`
-- `rules` definen restricciones de seguridad y entrega
-- `agents` definen roles especializados como `architect`, `backend`, `frontend` y `doc-planner`
-- `contexts` ajustan el comportamiento para investigacion, desarrollo y review
-- `skills` guardan guias concretas para arquitectura, testing, seguridad, TypeScript, Docker y mas
+    workflows: definen cómo analizar, planificar, implementar, probar, auditar, preparar un PR o publicar cambios.
 
-Empieza por [`.codex/MANUAL.md`](.codex/MANUAL.md). Ese archivo es el punto de entrada principal.
+    prompts: ofrecen alias tipo slash como /think, /forge y /test.
 
-### Como Funciona
+    rules: definen restricciones de seguridad y entrega.
 
-No tienes que ejecutar comandos especiales de este repo. Le pides a Codex, en lenguaje natural, que siga uno de los archivos de `.codex/`.
+    agents: definen roles especializados como architect, backend, frontend y doc-planner.
+
+    contexts: ajustan el comportamiento para investigación, desarrollo y review.
+
+    skills: guardan guías concretas para arquitectura, testing, seguridad, TypeScript, Docker y más.
+
+Empieza por .codex/MANUAL.md. Ese archivo es el punto de entrada principal.
+Cómo funciona
+
+No tienes que ejecutar comandos especiales de este repo. Le pides a Codex, en lenguaje natural, que siga uno de los archivos de .codex/.
 
 Ejemplos:
+code Text
 
-```text
 Usa .codex/workflows/think.md para analizar esta feature y crear un plan.
-```
 
-```text
-Sigue .codex/workflows/forge.md y ejecuta el ultimo plan aprobado sin hacer commit.
-```
+code Text
 
-```text
-Usa /test para anadir cobertura a este modulo y mantener el cambio acotado.
-```
+Sigue .codex/workflows/forge.md y ejecuta el último plan aprobado sin hacer commit.
 
-Los archivos de [`.codex/prompts/`](.codex/prompts/README.md) son una capa de conveniencia. Este repo no incluye un parser nativo de slash commands; esos alias documentan expansiones de prompt que puedes reutilizar en el chat.
+code Text
 
-### Flujo Recomendado
+Usa /test para añadir cobertura a este módulo y mantener el cambio acotado.
 
-Para la mayoria de tareas no triviales, el flujo esperado es:
+Los archivos de .codex/prompts/ son una capa de conveniencia. Este repo no incluye un parser nativo de slash commands; esos alias documentan expansiones de prompt que puedes reutilizar en el chat.
+Flujo recomendado
 
-1. `think` para analizar y planificar sin tocar codigo de producto
-2. `forge` para implementar
-3. `test` para ampliar cobertura y cerrar regresiones
-4. `audit` para revisar calidad, seguridad y arquitectura en modo read-only
-5. `pr` o `ship` solo cuando quieras pasos de entrega en Git de forma explicita
+Para la mayoría de tareas no triviales, el flujo esperado es:
 
-### Que Va A Crear Codex
+    think: para analizar y planificar sin tocar código de producto.
 
-En tareas medianas o grandes, Codex deberia dejar artefactos en `.orchestrator/` para que el trabajo pueda retomarse despues.
+    forge: para implementar.
 
-Salidas tipicas:
+    test: para ampliar cobertura y cerrar regresiones.
 
-- `.orchestrator/plans/<timestamp>-think-<slug>/status.md`
-- `.orchestrator/plans/<timestamp>-think-<slug>/investigation.md`
-- `.orchestrator/plans/<timestamp>-think-<slug>/design.md`
-- `.orchestrator/plans/<timestamp>-think-<slug>/plan.md`
-- `.orchestrator/plans/<timestamp>-<slug>/implementation.md`
-- `.orchestrator/audits/<timestamp>-audit/audit-report.md`
+    audit: para revisar calidad, seguridad y arquitectura en modo read-only.
 
-### Modelo De Seguridad
+    pr o ship: solo cuando quieras pasos de entrega en Git de forma explícita.
 
-Esta configuracion es intencionalmente conservadora:
+Qué va a crear Codex
 
-- Codex no deberia hacer `commit`, `push`, `merge` ni borrar ramas salvo que se lo pidas de forma explicita
-- los pasos de entrega deberian usar Conventional Commits
-- los planes, la documentacion y los logs de implementacion deben mantenerse sincronizados con el trabajo real
-- si la documentacion falta o esta desactualizada, Codex deberia registrarlo como riesgo en lugar de inventar
+En tareas medianas o grandes, Codex debería dejar artefactos en .orchestrator/ para que el trabajo pueda retomarse después.
 
-### Mapa Del Repositorio
+Salidas típicas:
 
-- [`.codex/MANUAL.md`](.codex/MANUAL.md): manual principal
-- [`.codex/workflows/`](.codex/workflows/think.md): flujos completos como `think`, `forge`, `test`, `audit`, `pr` y `ship`
-- [`.codex/prompts/`](.codex/prompts/README.md): alias tipo slash
-- [`.codex/rules/`](.codex/rules/global.md): restricciones compartidas de seguridad y operacion
-- [`.codex/agents/`](.codex/agents/architect.md): tarjetas de rol especializadas
-- [`.codex/contexts/`](.codex/contexts/development.md): overlays de comportamiento segun el modo de trabajo
-- [`.codex/skills/`](.codex/skills/software-architecture/SKILL.md): paquetes reutilizables de referencia
+    .orchestrator/plans/<timestamp>-think-<slug>/status.md
 
-### Inicio Rapido
+    .orchestrator/plans/<timestamp>-think-<slug>/investigation.md
 
-1. Copia o adapta el directorio `.codex/` dentro de tu repositorio.
-2. Abre [`.codex/MANUAL.md`](.codex/MANUAL.md).
-3. Pidele a Codex que use uno de los workflows o aliases de prompt.
-4. Deja que Codex escriba planes y auditorias en `.orchestrator/` para tareas medianas o grandes.
+    .orchestrator/plans/<timestamp>-think-<slug>/design.md
+
+    .orchestrator/plans/<timestamp>-think-<slug>/plan.md
+
+    .orchestrator/plans/<timestamp>-<slug>/implementation.md
+
+    .orchestrator/audits/<timestamp>-audit/audit-report.md
+
+Modelo de seguridad
+
+Esta configuración es intencionalmente conservadora:
+
+    Codex no debería hacer commit, push, merge ni borrar ramas salvo que se lo pidas de forma explícita.
+
+    Los pasos de entrega deberían usar Conventional Commits.
+
+    Los planes, la documentación y los logs de implementación deben mantenerse sincronizados con el trabajo real.
+
+    Si la documentación falta o está desactualizada, Codex debería registrarlo como riesgo en lugar de inventar.
+
+Mapa del repositorio
+
+    .codex/MANUAL.md: manual principal.
+
+    .codex/workflows/: flujos completos como think, forge, test, audit, pr y ship.
+
+    .codex/prompts/: alias tipo slash.
+
+    .codex/rules/: restricciones compartidas de seguridad y operación.
+
+    .codex/agents/: tarjetas de rol especializadas.
+
+    .codex/contexts/: overlays de comportamiento según el modo de trabajo.
+
+    .codex/skills/: paquetes reutilizables de referencia.
+
+Inicio rápido
+
+    Copia o adapta el directorio .codex/ dentro de tu repositorio.
+
+    Abre .codex/MANUAL.md.
+
+    Pídele a Codex que use uno de los workflows o alias de prompt.
+
+    Deja que Codex escriba planes y auditorías en .orchestrator/ para tareas medianas o grandes.
+
