@@ -22,6 +22,12 @@ Use natural prompts that point at the workflow you want. Examples:
 
 The workflow files are instructions for Codex to interpret, not commands that a runner parses.
 
+When a user invokes an alias from `.codex/prompts/`, Codex should:
+
+1. open the matching prompt file in `.codex/prompts/`
+2. follow any referenced workflow in `.codex/workflows/`
+3. treat that workflow as the operational source of truth, not as an optional hint
+
 ## Preferred Flow
 
 1. `audit`: read-only health check for an existing codebase

@@ -31,6 +31,7 @@ These rules define the default operating model for `.codex/` across repositories
 
 - Use an error budget of three attempts when fixing the same failing check.
 - Keep docs synchronized when the target repository maintains docs as part of the workflow.
+- Write shared repository docs, prompts, workflows, and guidance in English only so Codex does not spend tokens translating operating instructions.
 - Preserve separation between UI, domain logic, and data access.
 - Never hardcode secrets; prefer environment variables and documented setup.
 - Favor tests for critical business logic and regressions.

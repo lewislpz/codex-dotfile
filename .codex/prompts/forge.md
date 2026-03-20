@@ -1,14 +1,16 @@
 # /forge
 
-## Uso
+## Use
 
-Implementar una tarea o ejecutar un plan aprobado.
+Implement a task or execute an approved plan.
 
-## Expansion Recomendada
+## Recommended Expansion
 
 ```text
-Sigue .codex/workflows/forge.md y ejecuta esta implementacion.
-Plan: <ruta a plan.md o indica usar el ultimo plan>
-Objetivo: <que se debe construir>
-Restricciones: <sin commit, con tests, sin tocar otras areas, etc.>
+When this prompt is invoked, open and read .codex/workflows/forge.md before acting.
+Use that workflow as the source of truth for phases, constraints, and verification.
+Do not treat it as an optional reference: execute the implementation by following that workflow.
+Plan: <path to plan.md, or indicate to use the latest plan>
+Goal: <what should be built>
+Constraints: <no commit, with tests, do not touch other areas, etc.>
 ```

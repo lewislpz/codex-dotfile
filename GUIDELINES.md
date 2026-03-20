@@ -1,41 +1,41 @@
-# Guia Intuitiva De Uso
+# Practical Usage Guide
 
-Esta carpeta `.codex/` convierte el repositorio en un sistema de trabajo para Codex. No se usa con comandos especiales: se usa pidiendole a Codex lo que quieres hacer en lenguaje natural.
+This `.codex/` directory turns the repository into an operating system for Codex. You do not use special commands. You ask Codex, in natural language, what you want it to do.
 
-Tambien tienes prompts guardados en [`.codex/prompts/README.md`](/Users/lewis/0-dev/active/codex-dotfile/.codex/prompts/README.md) con alias estilo slash como `/think`, `/forge`, `/test`, `/audit`, `/pr`, `/ship` y `/resume`.
+You also have saved prompts in [`.codex/prompts/README.md`](/Users/lewis/0-dev/active/codex-dotfile/.codex/prompts/README.md) with slash-style aliases such as `/think`, `/forge`, `/test`, `/audit`, `/pr`, `/ship`, and `/resume`.
 
-## Idea Rapida
+## Quick Idea
 
-- `think`: analizar y planear sin tocar codigo de producto
-- `forge`: implementar una tarea o ejecutar un plan aprobado
-- `test`: crear o ampliar tests con enfoque TDD
-- `audit`: hacer una auditoria read-only
-- `pr`: preparar entrega en rama
-- `ship`: fusionar o publicar, solo si lo pides explicitamente
+- `think`: analyze and plan without changing product code
+- `forge`: implement a task or execute an approved plan
+- `test`: create or expand tests with a TDD mindset
+- `audit`: run a read-only audit
+- `pr`: prepare branch delivery
+- `ship`: merge or release, only when explicitly requested
 
-## Como Pedir Las Cosas
+## How To Ask
 
-Usa prompts directos y concretos. Ejemplos:
+Use direct, concrete prompts. Examples:
 
 ```text
-Usa .codex/workflows/think.md para analizar esta feature y crear un plan.
+Use .codex/workflows/think.md to analyze this feature and create a plan.
 ```
 
 ```text
-Sigue .codex/workflows/forge.md y ejecuta el ultimo plan aprobado.
+Follow .codex/workflows/forge.md and execute the latest approved plan.
 ```
 
 ```text
-Haz una auditoria read-only con .codex/workflows/audit.md.
+Run a read-only audit with .codex/workflows/audit.md.
 ```
 
 ```text
-Usa .codex/workflows/test.md para cubrir este modulo con tests.
+Use .codex/workflows/test.md to cover this module with tests.
 ```
 
-## Alias Slash Guardados
+## Saved Slash Aliases
 
-No hay parser nativo de slash commands en este entorno, pero si una convencion util:
+There is no native slash-command parser in this environment, but there is a useful convention:
 
 - `/think` -> [`.codex/prompts/think.md`](/Users/lewis/0-dev/active/codex-dotfile/.codex/prompts/think.md)
 - `/forge` -> [`.codex/prompts/forge.md`](/Users/lewis/0-dev/active/codex-dotfile/.codex/prompts/forge.md)
@@ -45,53 +45,53 @@ No hay parser nativo de slash commands en este entorno, pero si una convencion u
 - `/ship` -> [`.codex/prompts/ship.md`](/Users/lewis/0-dev/active/codex-dotfile/.codex/prompts/ship.md)
 - `/resume` -> [`.codex/prompts/resume.md`](/Users/lewis/0-dev/active/codex-dotfile/.codex/prompts/resume.md)
 
-Ejemplos:
+Examples:
 
 ```text
-Usa /think para analizar esta feature y crear un plan.
+Use /think to analyze this feature and create a plan.
 ```
 
 ```text
-Usa /forge sobre el ultimo plan aprobado y no hagas commit.
+Use /forge on the latest approved plan and do not commit.
 ```
 
-## Flujo Recomendado
+## Recommended Flow
 
-1. Empieza con `think` si la tarea no esta clara.
-2. Revisa el plan en `.orchestrator/plans/...`.
-3. Usa `forge` para implementar.
-4. Usa `test` si faltan pruebas o quieres cerrar regresiones.
-5. Usa `pr` o `ship` solo al final y solo si realmente quieres pasos de Git.
+1. Start with `think` if the task is not yet clear.
+2. Review the plan in `.orchestrator/plans/...`.
+3. Use `forge` to implement.
+4. Use `test` if coverage is missing or you want to close regressions.
+5. Use `pr` or `ship` only at the end and only when you really want Git delivery steps.
 
-## Que Va A Crear Codex
+## What Codex May Create
 
-En tareas medianas o grandes, Codex puede crear:
+For medium or large tasks, Codex may create:
 
-- `.orchestrator/plans/<fecha>-<slug>/investigation.md`
-- `.orchestrator/plans/<fecha>-<slug>/design.md`
-- `.orchestrator/plans/<fecha>-<slug>/plan.md`
-- `.orchestrator/plans/<fecha>-<slug>/implementation.md`
-- `.orchestrator/audits/<fecha>-audit/`
+- `.orchestrator/plans/<date>-<slug>/investigation.md`
+- `.orchestrator/plans/<date>-<slug>/design.md`
+- `.orchestrator/plans/<date>-<slug>/plan.md`
+- `.orchestrator/plans/<date>-<slug>/implementation.md`
+- `.orchestrator/audits/<date>-audit/`
 
-Esto sirve para dejar trazabilidad y poder retomar trabajo despues.
+This provides traceability and makes it easier to resume work later.
 
-## Consejos Para Pedir Mejor
+## How To Ask Better
 
-- Di el objetivo: que quieres conseguir.
-- Di el alcance: que archivos, modulo o feature afecta.
-- Di las restricciones: sin tocar Git, sin refactor grande, con tests, etc.
-- Si ya hay un plan, indica la ruta exacta.
+- State the goal: what you want to achieve.
+- State the scope: which files, module, or feature it affects.
+- State the constraints: no Git changes, no large refactor, include tests, and so on.
+- If a plan already exists, provide the exact path.
 
-Ejemplo:
+Example:
 
 ```text
-Usa .codex/workflows/forge.md para implementar el plan en
-.orchestrator/plans/2026-03-19-auth-fix/plan.md sin hacer commit y validando con tests.
+Use .codex/workflows/forge.md to implement the plan at
+.orchestrator/plans/2026-03-19-auth-fix/plan.md without committing and validate with tests.
 ```
 
-## Regla Practica
+## Practical Rule
 
-Si quieres pensar, pide `think`.
-Si quieres construir, pide `forge`.
-Si quieres validar, pide `test` o `audit`.
-Si quieres entregar cambios en Git, pide `pr` o `ship`.
+If you want to think, ask for `think`.
+If you want to build, ask for `forge`.
+If you want to validate, ask for `test` or `audit`.
+If you want Git delivery steps, ask for `pr` or `ship`.

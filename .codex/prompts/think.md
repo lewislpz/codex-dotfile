@@ -1,15 +1,17 @@
 # /think
 
-## Uso
+## Use
 
-Analizar, disenar y planificar sin modificar codigo de producto.
+Analyze, design, and plan without modifying product code.
 
-## Expansion Recomendada
+## Recommended Expansion
 
 ```text
-Usa .codex/workflows/think.md para analizar y planear esta tarea.
-Objetivo: <describe el objetivo>
-Contexto: <modulo, feature o problema>
-Restricciones: <sin tocar git, sin refactor grande, con docs, etc.>
-Entrega esperada: investigation.md, design.md y plan.md.
+When this prompt is invoked, open and read .codex/workflows/think.md before acting.
+Use that workflow as the source of truth for phases, constraints, and deliverables.
+Do not treat it as an optional reference: analyze and plan the task by following that workflow.
+Goal: <describe the goal>
+Context: <module, feature, or problem>
+Constraints: <do not touch Git, no large refactor, keep docs updated, etc.>
+Expected output: investigation.md, design.md, and plan.md.
 ```

@@ -1,14 +1,16 @@
 # /test
 
-## Uso
+## Use
 
-Agregar cobertura, cerrar regresiones o trabajar en TDD.
+Add coverage, close regressions, or work in TDD mode.
 
-## Expansion Recomendada
+## Recommended Expansion
 
 ```text
-Usa .codex/workflows/test.md para trabajar la estrategia de testing.
-Objetivo: <modulo, bug o feature>
-Nivel: <unit, integration, e2e, o automatico>
-Restricciones: <mockear externos, no tocar git, cobertura minima, etc.>
+When this prompt is invoked, open and read .codex/workflows/test.md before acting.
+Use that workflow as the source of truth for strategy, the TDD loop, and constraints.
+Do not treat it as an optional reference: execute the testing work by following that workflow.
+Goal: <module, bug, or feature>
+Level: <unit, integration, e2e, or automatic>
+Constraints: <mock external systems, do not touch Git, minimum coverage, etc.>
 ```

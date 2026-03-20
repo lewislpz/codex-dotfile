@@ -1,14 +1,16 @@
 # /audit
 
-## Uso
+## Use
 
-Hacer una auditoria read-only del codigo.
+Run a read-only code audit.
 
-## Expansion Recomendada
+## Recommended Expansion
 
 ```text
-Usa .codex/workflows/audit.md para hacer una auditoria read-only.
-Alcance: <repo completo o modulo concreto>
-Foco: <seguridad, arquitectura, deuda tecnica, calidad, etc.>
-Entrega esperada: findings por severidad y ruta del audit-report.md.
+When this prompt is invoked, open and read .codex/workflows/audit.md before acting.
+Use that workflow as the source of truth for phases, constraints, and deliverables.
+Do not treat it as an optional reference: execute the audit by following that workflow.
+Scope: <full repo or specific module>
+Focus: <security, architecture, technical debt, quality, etc.>
+Expected output: findings by severity and the path to audit-report.md.
 ```

@@ -1,14 +1,16 @@
 # /pr
 
-## Uso
+## Use
 
-Preparar una entrega en rama con commit, push y enlace de PR.
+Prepare a branch delivery with commit, push, and a PR link.
 
-## Expansion Recomendada
+## Recommended Expansion
 
 ```text
-Usa .codex/workflows/pr.md para preparar la entrega.
-Commit message: <opcional, en Conventional Commits>
-Validacion previa: <build, test, lint, o automatico>
-Nota: solo ejecuta esto si el repo esta en Git y quieres push real.
+When this prompt is invoked, open and read .codex/workflows/pr.md before acting.
+Use that workflow as the source of truth for delivery steps and constraints.
+Do not treat it as an optional reference: prepare the delivery by following that workflow.
+Commit message: <optional, in Conventional Commits format>
+Pre-validation: <build, test, lint, or automatic>
+Note: only run this if the repo uses Git and you want a real push.
 ```

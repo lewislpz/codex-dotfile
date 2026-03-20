@@ -1,14 +1,16 @@
 # /ship
 
-## Uso
+## Use
 
-Hacer merge o release solo bajo peticion explicita.
+Run a merge or release step only on explicit request.
 
-## Expansion Recomendada
+## Recommended Expansion
 
 ```text
-Usa .codex/workflows/ship.md para hacer el paso de release.
-Commit message: <opcional, en Conventional Commits>
-Estrategia: <merge normal, squash, segun repo>
-Validacion previa: <tests, build, docs drift>
+When this prompt is invoked, open and read .codex/workflows/ship.md before acting.
+Use that workflow as the source of truth for release steps and constraints.
+Do not treat it as an optional reference: execute the release by following that workflow.
+Commit message: <optional, in Conventional Commits format>
+Strategy: <regular merge, squash, according to the repo>
+Pre-validation: <tests, build, docs drift>
 ```

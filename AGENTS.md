@@ -22,7 +22,7 @@ rg -n "\.codex|\.orchestrator|Conventional Commits|docs/" .codex AGENTS.md
 Run commands from the repository root. Keep examples directly executable.
 
 ## Coding Style & Naming Conventions
-This repo is Markdown-first. Prefer short headings, direct prose, and imperative instructions. Keep filenames lowercase and kebab-case for workflows and skills, for example `.codex/workflows/ship.md`. Preserve YAML front matter where it already exists. Prefer ASCII unless the file already relies on Unicode.
+This repo is Markdown-first. Prefer short headings, direct prose, and imperative instructions. Write repository documentation, prompts, workflows, and guidance files in English only. Keep filenames lowercase and kebab-case for workflows and skills, for example `.codex/workflows/ship.md`. Preserve YAML front matter where it already exists. Prefer ASCII unless the file already relies on Unicode.
 
 ## Testing Guidelines
 No automated suite is configured here. Review contributions by checking internal consistency:
