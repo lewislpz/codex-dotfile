@@ -89,3 +89,13 @@ This setup is intentionally conservative:
 2. Open `.codex/MANUAL.md`.
 3. Ask Codex to use one of the workflows or prompt aliases.
 4. Let Codex write plans and audit artifacts to `.orchestrator/` for medium or large tasks.
+
+## Use As A Template
+
+If you want to create a new project scaffold in your current directory, run:
+
+```sh
+./codex-new-project my-new-project
+```
+
+The script creates `./my-new-project/` and copies only `.codex`, `AGENTS.md`, and `GUIDELINES.md`. It does not copy `.git` or any Git metadata.
