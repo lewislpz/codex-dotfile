@@ -1,51 +1,33 @@
 ---
 name: database-design
-description: Database design principles and decision-making. Schema design, indexing strategy, ORM selection, serverless databases.
+description: Use when designing or reviewing schemas, persistence models, indexes, migrations, queries, or database selection.
 ---
 
 # Database Design
 
-> **Learn to THINK, not copy SQL patterns.**
+## Boundaries
 
-## 🎯 Selective Reading Rule
+Use for persistence decisions. Do not choose a database or ORM before inspecting the
+repository and deployment constraints.
 
-**Read ONLY files relevant to the request!** Check the content map, find what you need.
+## Operating Loop
 
-| File | Description | When to Read |
-|------|-------------|--------------|
-| `database-selection.md` | PostgreSQL vs Neon vs Turso vs SQLite | Choosing database |
-| `orm-selection.md` | Drizzle vs Prisma vs Kysely | Choosing ORM |
-| `schema-design.md` | Normalization, PKs, relationships | Designing schema |
-| `indexing.md` | Index types, composite indexes | Performance tuning |
-| `optimization.md` | N+1, EXPLAIN ANALYZE | Query optimization |
-| `migrations.md` | Safe migrations, serverless DBs | Schema changes |
+1. Detect the current database, access layer, migration tooling, data volume,
+   consistency requirements, and operational constraints.
+2. Model invariants, ownership, relationships, lifecycle, and access patterns.
+3. Select keys, constraints, indexes, and transaction boundaries from those patterns.
+4. Plan backward-compatible migrations, rollback or roll-forward behavior, and data
+   verification.
+5. Verify representative queries and migration behavior with project-native tools.
 
----
+## Decision Rules
 
-## ⚠️ Core Principle
+- Preserve an existing database and ORM unless the task justifies migration cost.
+- Enforce durable invariants in the database when practical.
+- Add indexes for demonstrated access patterns and evaluate write cost.
+- Treat destructive or irreversible migrations as high risk.
+- Use structured columns or JSON based on query and evolution needs, not preference.
 
-- ASK user for database preferences when unclear
-- Choose database/ORM based on CONTEXT
-- Don't default to PostgreSQL for everything
+## Optional Reference
 
----
-
-## Decision Checklist
-
-Before designing schema:
-
-- [ ] Asked user about database preference?
-- [ ] Chosen database for THIS context?
-- [ ] Considered deployment environment?
-- [ ] Planned index strategy?
-- [ ] Defined relationship types?
-
----
-
-## Anti-Patterns
-
-❌ Default to PostgreSQL for simple apps (SQLite may suffice)
-❌ Skip indexing
-❌ Use SELECT * in production
-❌ Store JSON when structured data is better
-❌ Ignore N+1 queries
+Load [legacy-guide.md](references/legacy-guide.md) only for its compact checklist.

@@ -43,7 +43,7 @@ Check these first:
 - Use the smallest project-native command that gives confidence.
 - Prefer existing scripts such as `npm test`, `pytest`, `go test`, `cargo test`, `mvn test`, or targeted equivalents.
 - Do not invent external validation tooling that is not present in the repo.
-- If a check fails three times in a row, stop and surface the blocker.
+- Classify failures before retrying and do not repeat an unchanged failed action.
 
 ## Output Style
 

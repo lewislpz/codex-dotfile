@@ -22,11 +22,12 @@ mkdir -p "$PLAN_PATH"
 ```
 
 Create `status.md` with phases `Investigation`, `Design`, and `Plan`.
+Create it from `.codex/templates/status.md` with `workflow: think`, `status: draft`, and an explicit risk level.
 
 ## Phase 1: Investigation
 
-1. Load context from `docs/00-general-docs.md` when present.
-2. If it is missing, fall back to `README.md`, local docs, config files, and the source tree.
+1. Load configured documentation candidates in order.
+2. If they are missing, fall back to local docs, config files, and the source tree.
 3. Detect the stack, architecture pattern, conventions, and relevant modules.
 4. Write `investigation.md` covering:
    - request summary
@@ -56,6 +57,12 @@ Each task must include:
 - verification command or check
 
 Keep tasks small enough to complete and verify independently.
+
+Before finishing:
+
+1. validate the workspace with `.codex/scripts/validate-plan.sh`
+2. transition to `awaiting_approval` with `.codex/scripts/transition-workspace.sh`
+3. leave `approved_by: pending` until the user explicitly approves execution
 
 ## Final Response
 

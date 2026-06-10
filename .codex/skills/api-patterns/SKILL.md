@@ -1,82 +1,36 @@
 ---
 name: api-patterns
-description: API design principles and decision-making. REST vs GraphQL vs tRPC selection, response formats, versioning, pagination.
+description: Use when choosing or reviewing API style, contracts, response formats, versioning, pagination, or compatibility.
 ---
 
 # API Patterns
 
-> API design principles and decision-making for 2025.
-> **Learn to THINK, not copy fixed patterns.**
+## Boundaries
 
-## 🎯 Selective Reading Rule
+Use for API contract decisions. Do not use it as the primary implementation or
+security guide.
 
-**Read ONLY files relevant to the request!** Check the content map, find what you need.
+## Operating Loop
 
----
+1. Identify consumers, trust boundaries, latency needs, compatibility requirements,
+   and existing API conventions.
+2. Preserve the established style unless it causes a concrete problem.
+3. Define resources or operations, errors, pagination, idempotency, versioning, and
+   deprecation behavior before implementation.
+4. Review backward compatibility and observable failure behavior.
+5. Verify with the repository's contract tests, schema tools, or focused integration
+   checks.
 
-## 📑 Content Map
+## Decisions
 
-| File | Description | When to Read |
-|------|-------------|--------------|
-| `api-style.md` | REST vs GraphQL vs tRPC decision tree | Choosing API type |
-| `rest.md` | Resource naming, HTTP methods, status codes | Designing REST API |
-| `response.md` | Envelope pattern, error format, pagination | Response structure |
-| `graphql.md` | Schema design, when to use, security | Considering GraphQL |
-| `trpc.md` | TypeScript monorepo, type safety | TS fullstack projects |
-| `versioning.md` | URI/Header/Query versioning | API evolution planning |
-| `auth.md` | JWT, OAuth, Passkey, API Keys | Auth pattern selection |
-| `rate-limiting.md` | Token bucket, sliding window | API protection |
-| `documentation.md` | OpenAPI/Swagger best practices | Documentation |
-| `security-testing.md` | OWASP API Top 10, auth/authz testing | Security audits |
+- Choose REST, RPC, GraphQL, events, or another style from consumer needs, not habit.
+- Keep internal errors private while returning actionable client-safe errors.
+- Add versioning only when compatibility cannot be managed within the existing
+  contract.
+- Treat authentication, authorization, abuse controls, and sensitive data as a
+  separate security review.
 
----
+## Optional Reference
 
-## 🔗 Related Skills
-
-| Need | Skill |
-|------|-------|
-| API implementation | `@[skills/backend-development]` |
-| Data structure | `@[skills/database-design]` |
-| Security details | `@[skills/security-hardening]` |
-
----
-
-## ✅ Decision Checklist
-
-Before designing an API:
-
-- [ ] **Asked user about API consumers?**
-- [ ] **Chosen API style for THIS context?** (REST/GraphQL/tRPC)
-- [ ] **Defined consistent response format?**
-- [ ] **Planned versioning strategy?**
-- [ ] **Considered authentication needs?**
-- [ ] **Planned rate limiting?**
-- [ ] **Documentation approach defined?**
-
----
-
-## ❌ Anti-Patterns
-
-**DON'T:**
-
-- Default to REST for everything
-- Use verbs in REST endpoints (/getUsers)
-- Return inconsistent response formats
-- Expose internal errors to clients
-- Skip rate limiting
-
-**DO:**
-
-- Choose API style based on context
-- Ask about client requirements
-- Document thoroughly
-- Use appropriate status codes
-- **Return human-readable, personalized error messages** for user interactions (mapped from business/validation logic).
-
----
-
-## Script
-
-| Script | Purpose | Command |
-|--------|---------|---------|
-| `scripts/api_validator.py` | API endpoint validation | `python scripts/api_validator.py <project_path>` |
+Load [legacy-guide.md](references/legacy-guide.md) only for its checklist; ignore
+missing-file maps and stack-specific assumptions in that archived guide.

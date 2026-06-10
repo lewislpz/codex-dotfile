@@ -15,6 +15,8 @@ Create `.orchestrator/audits/<timestamp>-audit/` with:
 - `3-architecture-findings.md`
 - `audit-report.md`
 
+Create `status.md` from `.codex/templates/status.md` with `workflow: audit`, `status: in_progress`, and the audit risk level.
+
 ## Phase 0: Setup
 
 ```bash
@@ -43,6 +45,8 @@ Write `audit-report.md` with:
 - executive summary
 - prioritized findings by severity
 - actionable recommendations
+
+Execute the required risk gate and transition to `completed` through `.codex/scripts/transition-workspace.sh` only when the report exists and all audit phases are accounted for.
 
 ## Final Response
 

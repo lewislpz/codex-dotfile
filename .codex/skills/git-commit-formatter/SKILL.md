@@ -1,6 +1,6 @@
 ---
 name: git-commit-formatter
-description: Formats git commit messages according to Conventional Commits specification. Use this when the user asks to commit changes or write a commit message.
+description: Use when the user asks to write or validate a Conventional Commit message.
 ---
 
 # Git Commit Formatter Skill
@@ -10,7 +10,7 @@ When writing a git commit message, you MUST follow the Conventional Commits spec
 ## Format
 `<type>[optional scope]: <description>`
 
-## Allowed Types
+## Common Types
 - **feat**: A new feature
 - **fix**: A bug fix
 - **docs**: Documentation only changes
@@ -19,6 +19,12 @@ When writing a git commit message, you MUST follow the Conventional Commits spec
 - **perf**: A code change that improves performance
 - **test**: Adding missing tests or correcting existing tests
 - **chore**: Changes to the build process or auxiliary tools and libraries such as documentation generation
+- **build**: Build system or dependency changes
+- **ci**: Continuous integration changes
+- **revert**: Reverts a previous commit
+
+Prefer the repository's established Conventional Commit types and scopes. The
+specification permits project-defined types beyond this common list.
 
 ## Instructions
 1. Analyze the changes to determine the primary `type`.

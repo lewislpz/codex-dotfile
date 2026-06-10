@@ -13,6 +13,8 @@ Create or reuse `.orchestrator/plans/<timestamp>-test-<slug>/` with:
 - `test-matrix.md`
 - `implementation.md`
 
+Create `status.md` from `.codex/templates/status.md` with `workflow: test`, `status: in_progress`, and an explicit risk level.
+
 If the repository is under Git and the user explicitly wants a branch, create one. Otherwise stay on the current branch.
 
 ## Phase 1: Test Matrix
@@ -44,8 +46,11 @@ For each scenario:
 ## Phase 4: Quality Gate
 
 - run the narrowest reliable suite that covers the changed behavior
+- execute technical gates with `.codex/scripts/run-gate.sh`
+- record non-technical gates with `.codex/scripts/record-gate.sh`
 - collect coverage if the repo already supports it
 - update docs if testing standards changed
+- create checkpoints as scenarios complete
 
 ## Final Response
 
@@ -55,5 +60,5 @@ Report pass/fail status, coverage if available, bugs fixed during the cycle, and
 
 - Never skip the failing-test phase unless the task is explicitly about repairing broken tests.
 - Mock external systems in unit and integration tests.
-- Stop after three failed fix attempts on the same test issue.
+- Classify failures before retrying and stop after three materially different failed repair attempts.
 - Do not commit or push unless the user explicitly asks for delivery.

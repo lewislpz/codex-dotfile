@@ -15,7 +15,7 @@ Use /think to analyze this feature: Google login.
 ```
 
 ```text
-Use /forge on the latest approved plan and do not commit.
+Use /forge on the explicitly selected approved plan and do not commit.
 ```
 
 ```text
@@ -38,7 +38,7 @@ When an alias is invoked:
 - `/audit`: read-only audit
 - `/pr`: branch delivery with push and PR link, only when explicitly requested
 - `/ship`: merge or release, only when explicitly requested
-- `/resume`: continue the latest active plan or audit
+- `/resume`: continue an explicitly selected active plan or audit
 
 ## Practical Rule
 

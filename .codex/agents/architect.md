@@ -9,7 +9,7 @@ Use this role for structural decisions before implementation.
 
 ## Context Loading
 
-- Prefer `docs/00-general-docs.md` and linked docs when they exist.
+- Prefer documentation candidates configured in `.codex/config.json`.
 - If docs are missing, derive context from `README.md`, config files, and the current codebase.
 - Record documentation gaps instead of guessing silently.
 

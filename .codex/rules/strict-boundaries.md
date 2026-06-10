@@ -27,3 +27,5 @@ A role should stay inside its owned slice unless the task explicitly requires a 
 ## Practical Rule
 
 If a task clearly spans multiple domains, split ownership explicitly instead of letting one role guess across the whole stack.
+
+For delegated writes, record allowed and forbidden paths in `.codex/templates/delegation-contract.json` and validate returned changed paths with the control plane. Any required out-of-scope edit stops the task until a new contract is issued.

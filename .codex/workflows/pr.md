@@ -9,24 +9,31 @@ Use this workflow only when the user explicitly asks for a PR-style delivery ste
 ## Preconditions
 
 - the workspace must be a Git repository
-- the current branch must not be `main`
-- a remote named `origin` should exist
+- the current branch must not be one of the primary branches configured in `.codex/config.json`
+- the configured Git remote should exist
 - the user must confirm the commit message if one was not supplied
+- the active workspace must declare `status: completed`
+- medium- and high-risk gates must be satisfied
+
+Apply this delivery procedure to the completed implementation workspace. Do not
+change its `workflow` field to `pr`.
 
 ## Steps
 
 1. Check branch and working tree state.
 2. Run a relevant build or test command when the repository has one.
 3. Confirm docs drift is resolved for changed APIs, schemas, or dependencies.
-4. Stage and commit using a Conventional Commit message.
-5. Push the current branch to `origin`.
-6. Build a GitHub compare URL when the remote format allows it.
+4. Confirm the active workspace passes `.codex/scripts/validate-plan.sh`.
+5. Stage and commit using a Conventional Commit message.
+6. Push the current branch to the configured remote.
+7. Build a GitHub compare URL when the remote format allows it.
+8. Revalidate the workspace after delivery actions.
 
 ## Failure Conditions
 
 Abort and report if:
 - the repo is not under Git
-- the branch is `main`
+- the branch is a configured primary branch
 - build verification fails
 - push fails
 - no remote is configured
