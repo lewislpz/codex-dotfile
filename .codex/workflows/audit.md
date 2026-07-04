@@ -19,6 +19,10 @@ Create `.orchestrator/audits/<timestamp>-audit/` with:
 Create `status.md` from `.codex/templates/status.md` with `workflow: audit`,
 `status: in_progress`, and the audit risk level.
 
+The security validation is mandatory for every `/audit`: load and apply
+`.codex/skills/security-audit/SKILL.md` during Phase 2, including the relevant
+references it names for the target under review.
+
 ## Phase 0: Setup
 
 ```bash
@@ -54,12 +58,22 @@ Write `1-guidelines-findings.md`:
 
 ## Phase 2: Security Check
 
+Load `.codex/skills/security-audit/SKILL.md` and execute its audit workflow as
+the required security validation for this phase. Read the relevant
+`security-audit` references for the target, at minimum
+`references/risk-catalog.md` and `references/review-playbook.md`; also read
+`references/source-map.md` when current vulnerability intelligence or external
+advisories affect severity.
+
 Review auth, authorization, secrets handling, validation, rate limiting,
-dependency posture, permissions, CORS/CSRF where relevant, and risky
-configuration.
+dependency posture, permissions, CORS/CSRF where relevant, risky configuration,
+data protection, supply-chain exposure, infrastructure/container posture, and
+AI/LLM or mobile risks when present.
 
 Write `2-security-findings.md` with concrete evidence. Do not include secrets in
-the report. Redact any sensitive values discovered during inspection.
+the report. Redact any sensitive values discovered during inspection. Include a
+short `Security-Audit Skill Validation` section listing the `security-audit`
+references used, coverage performed, and any areas explicitly out of scope.
 
 ## Phase 3: Architecture And Performance Scan
 
@@ -95,6 +109,9 @@ Write `audit-report.md`:
 
 ## Evidence Reviewed
 <docs, configs, modules, tests, commands>
+
+## Required Validations
+- Security audit skill: <security-audit references used and summary of coverage>
 ```
 
 Execute the required risk gate and transition to `completed` through
