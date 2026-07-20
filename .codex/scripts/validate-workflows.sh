@@ -29,6 +29,16 @@ required_paths=(
   .codex/scripts/bind-files.sh
   .codex/scripts/control_skill_validation.py
 )
+
+for required_instruction in \
+  'Slash Alias Routing' \
+  '.codex/prompts/<alias>.md' \
+  'Unknown aliases'; do
+  if ! rg -Fq "$required_instruction" .codex/templates/AGENTS.md; then
+    echo "missing context-free slash routing instruction: $required_instruction" >&2
+    failed=1
+  fi
+done
 scan_paths=(.codex)
 [[ -f GUIDELINES.md ]] && scan_paths+=(GUIDELINES.md)
 
