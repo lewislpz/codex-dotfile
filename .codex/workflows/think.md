@@ -129,7 +129,7 @@ Use this shape:
 > Goal: <one-line outcome>
 > Risk: <low|medium|high>
 
-- [ ] <task name>
+- [ ] Task task-N: <task name>
   - Target: `<path or module>`
   - Action: <specific change>
   - Acceptance: <observable result>
@@ -139,6 +139,10 @@ Use this shape:
 Keep tasks small enough that a future `forge` run can complete and verify one task
 without understanding the whole plan. Put dependency-order foundations first, core
 behavior second, and integration or polish last.
+
+The top-level `Task <stable-id>:` checkbox is the only completion marker. Task
+metadata is descriptive and must not use additional checkboxes. Existing plans
+without canonical task markers remain supported by completion validation.
 
 ## Finalization
 

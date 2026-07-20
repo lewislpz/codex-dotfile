@@ -21,6 +21,10 @@ from control_io import (
     unchecked_tasks,
 )
 
+RFC3339_PATTERN = re.compile(
+    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$"
+)
+
 
 def validate_gate_receipts(workspace: Path, risk: str) -> list[str]:
     errors: list[str] = []
@@ -107,8 +111,12 @@ def validate_workspace(workspace: Path) -> list[str]:
         errors.append(f"invalid risk: {risk}")
     parsed_timestamps = {}
     for field in ("created_at", "updated_at"):
+        value = status.get(field, "")
+        if not RFC3339_PATTERN.fullmatch(value):
+            errors.append(f"invalid timestamp: {field}")
+            continue
         try:
-            timestamp = parse_timestamp(status.get(field, ""))
+            timestamp = parse_timestamp(value)
             parsed_timestamps[field] = timestamp
             if timestamp.tzinfo is None:
                 errors.append(f"timestamp lacks timezone: {field}")

@@ -121,7 +121,14 @@ def contained_workspace_file(workspace: Path, relative: str) -> Path:
 def unchecked_tasks(plan_path: Path) -> list[str]:
     if not plan_path.exists():
         return []
-    return re.findall(r"(?m)^- \[ \] .+$", plan_path.read_text(encoding="utf-8"))
+    text = plan_path.read_text(encoding="utf-8")
+    canonical_pattern = re.compile(
+        r"(?m)^- \[([ xX])\] Task ([a-z0-9]+(?:-[a-z0-9]+)*): .+$"
+    )
+    canonical_tasks = list(canonical_pattern.finditer(text))
+    if canonical_tasks:
+        return [match.group(0) for match in canonical_tasks if match.group(1) == " "]
+    return re.findall(r"(?m)^- \[ \] .+$", text)
 
 
 def required_artifacts(workspace: Path, workflow: str, state: str) -> list[Path]:

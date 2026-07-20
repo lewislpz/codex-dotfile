@@ -20,11 +20,12 @@
       "type": "array"
     },
     "gates": {
-      "additionalProperties": {
-        "items": {
-          "type": "string"
-        },
-        "type": "array"
+      "additionalProperties": false,
+      "properties": {
+        "high": { "items": { "type": "string" }, "minItems": 1, "type": "array" },
+        "low": { "items": { "type": "string" }, "minItems": 1, "type": "array" },
+        "medium": { "items": { "type": "string" }, "minItems": 1, "type": "array" },
+        "technical": { "items": { "type": "string" }, "type": "array" }
       },
       "required": [
         "low",

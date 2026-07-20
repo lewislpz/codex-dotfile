@@ -13,7 +13,8 @@ Use this context while implementing an approved plan.
 
 - `rg` and `find` for discovery
 - `sed -n` and `git diff` for inspection
-- `apply_patch` or shell redirection for edits
+- the host-approved patch or editing mechanism for source changes
+- shell redirection for generated outputs only when the host permits it
 - project-native build and test commands for verification
 
 ## Constraints

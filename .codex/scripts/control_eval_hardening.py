@@ -6,8 +6,9 @@ import subprocess
 from pathlib import Path
 
 from control_actions import record_gate, transition_workspace
-from control_bindings import bind_files, bind_git
+from control_bindings import bind_files
 from control_eval_fixtures import write_workspace
+from control_eval_git import run_git_scenario
 from control_eval_skills import run_skill_scenario
 from control_config import DEFAULT_CONFIG, validate_config
 from control_io import ControlError, file_hash, read_json, write_json
@@ -33,33 +34,13 @@ def write_consistency_gate(workspace: Path) -> Path:
     return evidence
 
 
-def initialize_git_repository(repository: Path) -> Path:
-    repository.mkdir()
-    subprocess.run(["git", "init", "-q"], cwd=repository, check=True)
-    source = repository / "source.txt"
-    source.write_text("verified", encoding="utf-8")
-    subprocess.run(["git", "add", "source.txt"], cwd=repository, check=True)
-    subprocess.run(
-        [
-            "git",
-            "-c",
-            "user.name=Eval",
-            "-c",
-            "user.email=eval@example.invalid",
-            "commit",
-            "-qm",
-            "initial",
-        ],
-        cwd=repository,
-        check=True,
-    )
-    return source
-
-
 def run_hardening_scenario(scenario: str, root: Path) -> int | None:
     skill_result = run_skill_scenario(scenario, root)
     if skill_result is not None:
         return skill_result
+    git_result = run_git_scenario(scenario, root)
+    if git_result is not None:
+        return git_result
     if scenario == "evidence-parent-traversal":
         workspace = write_workspace(root, state="in_progress", risk="medium")
         root.joinpath("outside.md").write_text("outside", encoding="utf-8")
@@ -105,14 +86,6 @@ def run_hardening_scenario(scenario: str, root: Path) -> int | None:
         except ControlError:
             return 1
         return 0
-    if scenario == "git-binding-worktree-change":
-        repository = root / "repository"
-        source = initialize_git_repository(repository)
-        workspace = write_workspace(root, state="completed")
-        write_consistency_gate(workspace)
-        bind_git(workspace, repository, ["source.txt"])
-        source.write_text("changed", encoding="utf-8")
-        return int(bool(validate_workspace(workspace)))
     if scenario == "completed-to-delivered-invalid":
         workspace = write_workspace(root, state="completed")
         evidence = write_consistency_gate(workspace)

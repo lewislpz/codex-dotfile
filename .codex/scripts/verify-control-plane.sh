@@ -24,7 +24,8 @@ case "${1:-}" in
     ;;
 esac
 eval_results="$(mktemp "${TMPDIR:-/tmp}/codex-control-evals.XXXXXX")"
-trap 'rm -f "$eval_results"' EXIT
+status_files="$(mktemp "${TMPDIR:-/tmp}/codex-control-workspaces.XXXXXX")"
+trap 'rm -f "$eval_results" "$status_files"' EXIT
 
 python3 -m py_compile .codex/scripts/control*.py
 bash -n .codex/scripts/*.sh
@@ -36,6 +37,13 @@ fi
 
 validated=0
 skipped=0
+if [[ "$mode" == "active" ]]; then
+  echo "verification scope: active workspaces only; use --all for maintenance/CI and historical validation"
+elif [[ "$mode" == "all" ]]; then
+  echo "verification scope: all workspaces, including historical states"
+else
+  echo "verification scope: selected workspace only ($workspace_path)"
+fi
 validate_status_file() {
   local status_file="$1"
   status="$(sed -n 's/^status: //p' "$status_file" | head -n 1)"
@@ -50,9 +58,13 @@ validate_status_file() {
 if [[ "$mode" == "workspace" ]]; then
   validate_status_file "$workspace_path/status.md"
 elif [[ -d .orchestrator ]]; then
+  find .orchestrator -mindepth 3 -maxdepth 3 -name status.md -type f | sort >"$status_files"
   while IFS= read -r status_file; do
     validate_status_file "$status_file"
-  done < <(find .orchestrator -mindepth 3 -maxdepth 3 -name status.md -type f | sort)
+  done <"$status_files"
 fi
 
 echo "workspace validation: $validated validated, $skipped skipped ($mode mode)"
+if [[ "$mode" == "active" && "$skipped" -gt 0 ]]; then
+  echo "notice: $skipped historical workspace(s) were not validated; run '$0 --all' for full-history verification"
+fi

@@ -5,8 +5,9 @@ import fnmatch
 import subprocess
 from pathlib import Path
 
+from control_bindings import git_changed_paths
 from control_config import is_excluded, load_config
-from control_io import file_hash, read_json
+from control_io import ControlError, file_hash, read_json
 
 
 def binding_repository(workspace: Path, binding: dict) -> Path:
@@ -15,19 +16,13 @@ def binding_repository(workspace: Path, binding: dict) -> Path:
 
 
 def current_git_worktree(repository: Path) -> dict[str, str | None] | None:
-    result = subprocess.run(
-        ["git", "ls-files", "-m", "-o", "--exclude-standard", "-d", "-z"],
-        cwd=repository,
-        text=True,
-        capture_output=True,
-        check=False,
-    )
-    if result.returncode != 0:
+    try:
+        paths = git_changed_paths(repository)
+    except ControlError:
         return None
-    paths = {path for path in result.stdout.split("\0") if path}
     return {
         path: file_hash(repository / path) if (repository / path).is_file() else None
-        for path in sorted(paths)
+        for path in paths
     }
 
 

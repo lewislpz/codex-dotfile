@@ -128,9 +128,10 @@ host integration supplies stronger provenance.
 The control plane uses atomic writes and a per-workspace lock. Do not bypass its
 commands with direct edits to semantic state or control receipts.
 
-`verify-control-plane.sh` validates the package and active workspaces by default. Use
-`--all` to inspect historical workspaces or `--workspace PATH` to validate one
-workspace explicitly before delivery.
+`verify-control-plane.sh` validates the package and active workspaces by default; a
+successful default run does not attest to skipped historical workspaces. Maintenance
+and CI should run `bash .codex/scripts/verify-control-plane.sh --all`. Use
+`--workspace PATH` to validate one workspace explicitly before delivery.
 
 ## Workspace Lifecycle
 

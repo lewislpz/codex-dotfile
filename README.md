@@ -93,6 +93,13 @@ Validate the whole control plane:
 bash .codex/scripts/verify-control-plane.sh
 ```
 
+The default command validates the package and active workspaces. For maintenance or
+CI, include historical workspaces as well:
+
+```sh
+bash .codex/scripts/verify-control-plane.sh --all
+```
+
 List resumable workspaces:
 
 ```sh

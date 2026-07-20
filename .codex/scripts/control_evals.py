@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
-from __future__ import annotations
-
 import tempfile
 from pathlib import Path
 import subprocess
 
 from control_actions import select_workspace, transition_workspace
+from control_eval_config import run_config_scenario
 from control_eval_hardening import run_hardening_scenario
-from control_io import (
-    ControlError,
-    file_hash,
-    write_json,
-)
+from control_eval_plans import run_plan_scenario
+from control_io import ControlError, file_hash, write_json
 from control_eval_fixtures import write_workspace
 from control_validation import validate_scope, validate_workspace
 
@@ -19,9 +15,15 @@ from control_validation import validate_scope, validate_workspace
 def run_scenario(scenario: str) -> int:
     with tempfile.TemporaryDirectory(prefix="codex-control-eval-") as temp:
         root = Path(temp)
+        config_result = run_config_scenario(scenario, root)
+        if config_result is not None:
+            return config_result
         hardening_result = run_hardening_scenario(scenario, root)
         if hardening_result is not None:
             return hardening_result
+        plan_result = run_plan_scenario(scenario, root)
+        if plan_result is not None:
+            return plan_result
         if scenario == "approved-with-pending-approval":
             workspace = write_workspace(root, state="approved", approved_by="pending")
             return int(bool(validate_workspace(workspace)))

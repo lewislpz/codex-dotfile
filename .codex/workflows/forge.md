@@ -46,8 +46,9 @@ permissions.
 
 ## Phase 2: Task Execution Loop
 
-For each unchecked task in `plan.md`, run the same disciplined loop locally or via
-a bounded sub-agent:
+For each unchecked top-level `- [ ] Task <stable-id>:` marker in `plan.md`, run the
+same disciplined loop locally or via a bounded sub-agent. For a legacy plan without
+canonical task markers, treat each top-level unchecked checkbox as a task:
 
 1. Read the exact task, target files, acceptance criteria, and verification.
 2. Confirm ownership boundaries and forbidden paths.
@@ -56,7 +57,8 @@ a bounded sub-agent:
 5. Run the task verification exactly, or record why an equivalent check was required.
 6. Review the result for spec compliance, security, boundaries, tests, docs, and regressions.
 7. Update `implementation.md` with files changed, checks run, and unresolved risks.
-8. Mark the task complete in `plan.md` only after verification and review.
+8. Mark only the canonical task checkbox complete in `plan.md` after verification
+   and review; metadata is not a completion marker.
 9. Create a checkpoint with `.codex/scripts/checkpoint.sh`.
 
 Use this log shape:

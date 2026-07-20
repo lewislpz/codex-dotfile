@@ -14,20 +14,30 @@ def relative_repository_path(workspace: Path, repository: Path) -> str:
     return os.path.relpath(repository.resolve(), workspace.resolve())
 
 
-def git_worktree_files(repository: Path) -> dict[str, str | None]:
-    result = subprocess.run(
-        ["git", "ls-files", "-m", "-o", "--exclude-standard", "-d", "-z"],
-        cwd=repository,
-        text=True,
-        capture_output=True,
-        check=False,
+def git_changed_paths(repository: Path) -> list[str]:
+    commands = (
+        ["git", "diff", "--name-only", "--no-renames", "-z", "HEAD", "--"],
+        ["git", "ls-files", "--others", "--exclude-standard", "-z"],
     )
-    if result.returncode != 0:
-        raise ControlError(result.stderr.strip() or "Git command failed")
-    paths = {path for path in result.stdout.split("\0") if path}
+    paths: set[str] = set()
+    for command in commands:
+        result = subprocess.run(
+            command,
+            cwd=repository,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if result.returncode != 0:
+            raise ControlError(result.stderr.strip() or "Git command failed")
+        paths.update(path for path in result.stdout.split("\0") if path)
+    return sorted(paths)
+
+
+def git_worktree_files(repository: Path) -> dict[str, str | None]:
     return {
         path: file_hash(repository / path) if (repository / path).is_file() else None
-        for path in sorted(paths)
+        for path in git_changed_paths(repository)
     }
 
 
@@ -51,6 +61,7 @@ def bind_git(workspace: Path, repository: Path, allowed_paths: list[str]) -> Non
                 "branch": git("branch", "--show-current"),
                 "head_commit": git("rev-parse", "HEAD"),
                 "repository": relative_repository_path(workspace, repository),
+                "snapshot_version": 2,
                 "worktree_files": git_worktree_files(repository),
             },
         )
